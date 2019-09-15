@@ -1,10 +1,12 @@
 package main;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Task {
 
     private PairStringInterval difficult;
+    private int randNumber;
 
     public void startGame() throws Exception {
         System.out.println("Game starts in:");
@@ -35,5 +37,14 @@ public class Task {
             }
         }
         System.out.println("You choose " + difficult.first + " difficult...");
+    }
+
+    public void randomNumberGenerator(PairStringInterval difficult){
+        int min = difficult.second.first;
+        int max = difficult.second.second;
+        int distinction = max - min;
+        Random random = new Random();
+        randNumber = min + random.nextInt(distinction + 1);
+        System.out.println("Number generated successfully!");
     }
 }
