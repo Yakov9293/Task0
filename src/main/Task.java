@@ -20,15 +20,12 @@ public class Task {
         System.out.println("Choose difficult (1 - easy, 2 - medium, 3 - hard)");
         Scanner scanner = new Scanner(System.in);
         while (difficult == null) {
-            int inputDifficult = scanner.nextInt();
-            /*Почему эта конструкция отрабатывает не правильно
             int inputDifficult = 0;
             try {
                 inputDifficult = scanner.nextInt();
-            }catch (Exception ex){
-                System.out.println("err");
+            } catch (Exception ex) {
+                scanner.next();
             }
-            */
             switch (inputDifficult) {
                 case 1:
                     difficult = new PairStringInterval("Easy", new PairInt(1, 10));
@@ -69,12 +66,18 @@ public class Task {
         while (userAttempt != secretNumber) {
             System.out.println("Insert the number");
             Scanner scanner = new Scanner(System.in);
-            userAttempt = scanner.nextInt();
+            try {
+                userAttempt = scanner.nextInt();
+            } catch (Exception ex) {
+                System.out.println("Incorrect input");
+                scanner.next();
+                continue;
+            }
             if (userAttempt < secretNumber) {
                 System.out.println("Your number is less");
-            }else if(userAttempt > secretNumber){
+            } else if (userAttempt > secretNumber) {
                 System.out.println("Your number is greater");
-            }else{
+            } else {
                 System.out.println("Congratulations! \nYou guessed. \nConceived number: " + secretNumber);
                 return;
             }
