@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Task {
 
     private PairStringInterval difficult;
-    private int randNumber;
+    private int secretNumber;
 
     public void startGame() throws Exception {
         System.out.println("Game starts in:");
@@ -39,12 +39,38 @@ public class Task {
         System.out.println("You choose " + difficult.first + " difficult...");
     }
 
-    public void randomNumberGenerator(PairStringInterval difficult){
+    public void randomNumberGenerator() {
+        if (difficult == null) {
+            System.out.println("Error! You have not selected a difficulty level!");
+            return;
+        }
         int min = difficult.second.first;
         int max = difficult.second.second;
         int distinction = max - min;
         Random random = new Random();
-        randNumber = min + random.nextInt(distinction + 1);
+        secretNumber = min + random.nextInt(distinction + 1);
         System.out.println("Number generated successfully!");
+    }
+
+    public void gameProcess() {
+        if (difficult == null || secretNumber < difficult.second.first || secretNumber > difficult.second.second) {
+            System.out.println("Error! You have not selected a difficulty level or an error occurred while generating the number");
+            return;
+        }
+        int userAttempt = 0;
+        while (userAttempt != secretNumber) {
+            System.out.println("Insert the number");
+            Scanner scanner = new Scanner(System.in);
+            userAttempt = scanner.nextInt();
+            if (userAttempt < secretNumber) {
+                System.out.println("Your number is less");
+            }else if(userAttempt > secretNumber){
+                System.out.println("Your number is greater");
+            }else{
+                System.out.println("Congratulations! \nYou guessed. \nConceived number: " + secretNumber);
+                return;
+            }
+        }
+
     }
 }
