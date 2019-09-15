@@ -21,6 +21,14 @@ public class Task {
         Scanner scanner = new Scanner(System.in);
         while (difficult == null) {
             int inputDifficult = scanner.nextInt();
+            /*Почему эта конструкция отрабатывает не правильно
+            int inputDifficult = 0;
+            try {
+                inputDifficult = scanner.nextInt();
+            }catch (Exception ex){
+                System.out.println("err");
+            }
+            */
             switch (inputDifficult) {
                 case 1:
                     difficult = new PairStringInterval("Easy", new PairInt(1, 10));
