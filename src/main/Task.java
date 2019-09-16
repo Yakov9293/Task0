@@ -29,14 +29,8 @@ public class Task {
 
     private void chooseDifficult() {
         System.out.println("Choose difficult (1 - easy, 2 - medium, 3 - hard)");
-        Scanner scanner = new Scanner(System.in);
         while (difficult == null) {
-            int inputDifficult = 0;
-            try {
-                inputDifficult = scanner.nextInt();
-            } catch (Exception ex) {
-                scanner.next();
-            }
+            int inputDifficult = simpleNumberEntry();
             switch (inputDifficult) {
                 case 1:
                     difficult = new PairStringInterval("Easy", new PairInt(1, 10));
@@ -56,20 +50,16 @@ public class Task {
     }
 
     private void randomNumberGenerator() {
-        if (difficult == null) {
-            System.out.println("Error! You have not selected a difficulty level!");
-            return;
-        }
-        int min = difficult.second.first;
-        int max = difficult.second.second;
-        int distinction = max - min;
-        Random random = new Random();
-        secretNumber = min + random.nextInt(distinction + 1);
+        int minChoosesRange = difficult.second.first;
+        int maxChoosesRange = difficult.second.second;
+        int distinction = maxChoosesRange - minChoosesRange;
+        secretNumber = minChoosesRange + new Random().nextInt(distinction + 1);
         System.out.println("Number generated successfully!");
     }
 
     private void gameProcess() {
-        if (difficult == null || secretNumber < difficult.second.first || secretNumber > difficult.second.second) {
+        boolean isSecretNumberNotInAcceptableRange = secretNumber < difficult.second.first || secretNumber > difficult.second.second;//ты наверн побьёшь за такую длинную переменную, но я не знал, как грамотно от этого избавиться
+        if (difficult == null || isSecretNumberNotInAcceptableRange) {
             System.out.println("Error! You have not selected a difficulty level or an error occurred while generating the number");
             return;
         }
