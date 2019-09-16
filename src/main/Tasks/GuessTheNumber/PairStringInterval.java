@@ -1,4 +1,4 @@
-package main;
+package main.Tasks.GuessTheNumber;
 
 public class PairStringInterval {
     public String first;
