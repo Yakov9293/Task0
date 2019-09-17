@@ -84,13 +84,15 @@ public class GuessTheNumber {
     private void offerToContinue() {
         System.out.println("Play again? Press 1 to continue. Press 0 to exit.");
         Scanner scanner = new Scanner(System.in);
-        int userEnteredValue = simplifiedNumberInput(scanner);
-        boolean isGoodEnteredValue = userEnteredValue == 0 || userEnteredValue == 1;
+        int userEnteredValue = 0;
+        boolean isGoodEnteredValue = false;
         while (!isGoodEnteredValue){//избавился от рекурсии с помощью этого цикла
             userEnteredValue = simplifiedNumberInput(scanner);
             isGoodEnteredValue = userEnteredValue == 0 || userEnteredValue == 1;
+            System.out.println("Incorrect input");
         }
         gameStatus = (userEnteredValue == 0) ? GameStatus.STOPPING : GameStatus.PLAYING;
+        difficult = null;
 
     }
 
