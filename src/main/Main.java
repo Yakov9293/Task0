@@ -1,10 +1,10 @@
 package main;
 
-import main.Tasks.GuessTheNumber.Task;
+import main.Tasks.GuessTheNumber.GuessTheNumber;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        new Task().runGame();
+        new GuessTheNumber().runGame();
     }
 }
 

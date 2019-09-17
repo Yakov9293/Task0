@@ -3,7 +3,7 @@ package main.Tasks.GuessTheNumber;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Task {
+public class GuessTheNumber {
 
     private PairStringInterval difficult;
     private int secretNumber;
@@ -31,7 +31,7 @@ public class Task {
         System.out.println("Choose difficult (1 - easy, 2 - medium, 3 - hard)");
         while (difficult == null) {
             Scanner scanner = new Scanner(System.in);
-            int inputDifficult = simpleNumberEntry(scanner);
+            int inputDifficult = simplifiedNumberInput(scanner);
             switch (inputDifficult) {
                 case 1:
                     difficult = new PairStringInterval("Easy", new PairInt(1, 10));
@@ -59,15 +59,15 @@ public class Task {
     }
 
     private void gameProcess() {
-        boolean isSecretNumberNotInAcceptableRange = secretNumber < difficult.second.first || secretNumber > difficult.second.second;//ты наверн побьёшь за такую длинную переменную, но я не знал, как грамотно от этого избавиться
-        if (difficult == null || isSecretNumberNotInAcceptableRange) {
+        boolean isNumberValid = secretNumber < difficult.second.first || secretNumber > difficult.second.second;//ты наверн побьёшь за такую длинную переменную, но я не знал, как грамотно от этого избавиться
+        if (difficult == null || isNumberValid) {
             System.out.println("Error! You have not selected a difficulty level or an error occurred while generating the number");
             return;
         }
         while (true) {
             System.out.println("Insert the number");
             Scanner scanner = new Scanner(System.in);
-            int userAttempt = simpleNumberEntry(scanner);//нормально ли, что я каждый раз создаю переменную. Мб инициализацию стоило вынести за цикл.
+            int userAttempt = simplifiedNumberInput(scanner);//нормально ли, что я каждый раз создаю переменную. Мб инициализацию стоило вынести за цикл.
             //и нормально ли, что у меня из-за вызова метода simpleNumberEntry, кучу раз создаётся экземпляр класса Scanner
             if (userAttempt < secretNumber) {
                 System.out.println("Your number is less");
@@ -84,17 +84,17 @@ public class Task {
     private void offerToContinue() {
         System.out.println("Play again? Press 1 to continue. Press 0 to exit.");
         Scanner scanner = new Scanner(System.in);
-        int userEnteredValue = simpleNumberEntry(scanner);
+        int userEnteredValue = simplifiedNumberInput(scanner);
         boolean isGoodEnteredValue = userEnteredValue == 0 || userEnteredValue == 1;
-        if (isGoodEnteredValue) {
-            gameStatus = (userEnteredValue == 0) ? GameStatus.STOPPING : GameStatus.PLAYING;
-        } else {
-            offerToContinue();
+        while (!isGoodEnteredValue){//избавился от рекурсии с помощью этого цикла
+            userEnteredValue = simplifiedNumberInput(scanner);
+            isGoodEnteredValue = userEnteredValue == 0 || userEnteredValue == 1;
         }
+        gameStatus = (userEnteredValue == 0) ? GameStatus.STOPPING : GameStatus.PLAYING;
 
     }
 
-    private int simpleNumberEntry(Scanner scanner) {//не стоило ли сделать метод с другим модификатором доступа
+    private int simplifiedNumberInput(Scanner scanner) {//не стоило ли сделать метод с другим модификатором доступа
         while (!scanner.hasNextInt()) {
             scanner.next();
             System.out.println("Incorrect input");
