@@ -1,4 +1,4 @@
-package main.Tasks.GuessTheNumber;
+package main.tasks.GuessTheNumber;
 
 public class PairInt {
     public int first;
