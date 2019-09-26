@@ -1,5 +1,7 @@
 package main.tasks.store;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.List;
 
 public class Storage {
